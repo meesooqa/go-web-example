@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"log/slog"
 
 	"github.com/meesooqa/go-web-example/config"
 	"github.com/meesooqa/go-web-example/logging"
@@ -29,6 +30,6 @@ func main() {
 	}
 	s := server.New(cfg.Server, hh, mw)
 
-	log.Printf("Сервер запущен на http://%s:%d", cfg.Server.Host(), cfg.Server.Port())
+	logger.Info("server started", slog.String("host", cfg.Server.Host()), slog.Int("port", cfg.Server.Port()))
 	log.Fatal(s.Run())
 }
