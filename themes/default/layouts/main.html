@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html class="page" lang="{{ .Page.Lang }}">
+<head>
+    <title>{{ .Page.Title }}</title>
+    <meta name="description" content="{{ .Page.Description }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/static/images/favicon.png">
+    <link rel="stylesheet" href="/static/styles/styles.css">
+</head>
+<body class="page__body">
+    {{ template "content" . }}
+    <script type="module" src="/static/scripts/index.js"></script>
+</body>
+</html>

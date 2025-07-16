@@ -18,7 +18,7 @@ type AppConfig struct {
 	Project *Project `yaml:"project"`
 	Log     *Log     `yaml:"log"`
 	Server  *Server  `yaml:"server"`
-	Handler *Handler `yaml:"handler"`
+	Theme   *Theme   `yaml:"theme"`
 }
 
 // Project contains the project information
@@ -47,10 +47,10 @@ type Server struct {
 	RawIdleTimeout       time.Duration `yaml:"idle_timeout"`
 }
 
-// Handler contains handler configuration
-type Handler struct {
-	RawTemplatesDir string `yaml:"templates_dir"`
-	RawTemplateName string `yaml:"template_name"`
+// Theme contains theme configuration
+type Theme struct {
+	RawThemesDir string `yaml:"themes_dir"`
+	RawTheme     string `yaml:"theme"`
 }
 
 // Load config from file

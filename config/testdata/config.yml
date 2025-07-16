@@ -14,6 +14,6 @@ server:
   read_header_timeout: 100s
   write_timeout: 202s
   idle_timeout: 333s
-handler:
-  templates_dir: "test"
-  template_name: "tpl_test"
+theme:
+  themes_dir: "test"
+  theme: "theme_test"

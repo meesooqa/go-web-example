@@ -56,10 +56,10 @@ func TestLoad(t *testing.T) {
 		t.Parallel()
 		cfg := c.Handler
 		assert.IsType(t, &Handler{}, cfg)
-		assert.Equal(t, "test", cfg.TemplatesDir())
-		assert.Equal(t, "test", cfg.RawTemplatesDir)
-		assert.Equal(t, "tpl_test", cfg.TemplateName())
-		assert.Equal(t, "tpl_test", cfg.RawTemplateName)
+		assert.Equal(t, "test", cfg.ThemesDir())
+		assert.Equal(t, "test", cfg.RawThemesDir)
+		assert.Equal(t, "theme_test", cfg.Theme())
+		assert.Equal(t, "theme_test", cfg.RawTheme)
 	})
 }
 

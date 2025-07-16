@@ -3,22 +3,24 @@ package handlers
 import (
 	"log/slog"
 	"net/http"
-	"path/filepath"
 )
+
+type StaticHandler interface {
+	HandleStatic(mux *http.ServeMux)
+}
 
 type Static struct {
 	logger *slog.Logger
-	cfg    Config
+	sh     StaticHandler
 }
 
-func NewStatic(logger *slog.Logger, cfg Config) *Static {
+func NewStatic(logger *slog.Logger, sh StaticHandler) *Static {
 	return &Static{
 		logger: logger,
-		cfg:    cfg,
+		sh:     sh,
 	}
 }
 
 func (h *Static) Handle(mux *http.ServeMux) {
-	path := filepath.Join(h.cfg.TemplatesDir(), h.cfg.TemplateName(), "static")
-	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(path))))
+	h.sh.HandleStatic(mux)
 }

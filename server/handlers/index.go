@@ -4,18 +4,21 @@ import (
 	"html/template"
 	"log/slog"
 	"net/http"
-	"path/filepath"
 )
+
+type TemplateBuilder interface {
+	BuildTemplate(contentFile string) (*template.Template, error)
+}
 
 type Index struct {
 	logger *slog.Logger
-	cfg    Config
+	tb     TemplateBuilder
 }
 
-func NewIndex(logger *slog.Logger, cfg Config) *Index {
+func NewIndex(logger *slog.Logger, tb TemplateBuilder) *Index {
 	return &Index{
 		logger: logger,
-		cfg:    cfg,
+		tb:     tb,
 	}
 }
 
@@ -24,21 +27,41 @@ func (h *Index) Handle(mux *http.ServeMux) {
 }
 
 func (h *Index) handlePage(w http.ResponseWriter, r *http.Request) {
-	// TODO "pages/index.html"
-	fn := filepath.Join(h.cfg.TemplatesDir(), h.cfg.TemplateName(), "layout.html")
-	tmpl, err := template.ParseFiles(fn)
+	//if r.Method != h.Method {
+	//	http.Error(w, "method is not allowed", http.StatusMethodNotAllowed)
+	//	return
+	//}
+	tmpl, err := h.tb.BuildTemplate("demo.html")
 	if err != nil {
+		h.logger.Error(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
-	data := struct {
-		Title string
-	}{
-		Title: "Hello, World!",
-	}
-	err = tmpl.Execute(w, data)
+	err = tmpl.Execute(w, h.data(r))
 	if err != nil {
+		h.logger.Error(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+type DataPage struct {
+	Lang        string
+	Title       string
+	Description string
+}
+
+func (h *Index) data(_ *http.Request) any {
+	data := struct {
+		Page    DataPage
+		Title   string
+		DemoVar string
+	}{
+		Page: DataPage{
+			Lang:        "en",
+			Title:       "Demo",
+			Description: "This is an demo page",
+		},
+		DemoVar: "DemoVar <pre>VALUE</pre>",
+	}
+	return data
 }

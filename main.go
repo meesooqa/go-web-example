@@ -9,6 +9,7 @@ import (
 	"github.com/meesooqa/go-web-example/server"
 	"github.com/meesooqa/go-web-example/server/handlers"
 	"github.com/meesooqa/go-web-example/server/middlewares"
+	"github.com/meesooqa/go-web-example/server/theme"
 )
 
 func main() {
@@ -21,9 +22,11 @@ func main() {
 		defer func() { _ = closer.Close() }()
 	}
 
+	thm := theme.New(cfg.Theme)
+
 	hh := []server.Handler{
-		handlers.NewStatic(logger, cfg.Handler),
-		handlers.NewIndex(logger, cfg.Handler),
+		handlers.NewStatic(logger, thm),
+		handlers.NewIndex(logger, thm),
 	}
 	mw := []server.Middleware{
 		middlewares.NewLogging(logger),
