@@ -28,7 +28,11 @@
 <main class="main">
     {{ template "content" . }}
 </main>
-<footer class="footer"></footer>
+<footer class="footer">
+    <p class="footer__copy">
+        <span class="footer__organization"><a href="https://github.com/meesooqa">Meesooqa</a>,</span> 2024&ndash;{{ .Site.BuildYear }}
+    </p>
+</footer>
 <script type="module" src="/static/scripts/index.js"></script>
 </body>
 </html>
