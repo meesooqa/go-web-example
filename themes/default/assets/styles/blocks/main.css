@@ -1,6 +1,17 @@
 /* Main */
 
+.main {
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 20px;
+    display: grid;
+}
+
+.main__nav {
+    grid-column: 1 / span 2;
+}
+
 .main__content {
+    grid-column: 3 / span 6;
     margin-bottom: 30px;
 }
 

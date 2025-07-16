@@ -1,0 +1,39 @@
+/* List */
+
+.nav__list {
+    display: grid;
+    row-gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Nested */
+
+.nav__nested {
+    display: grid;
+    row-gap: 8px;
+    margin: 0;
+    padding: 0;
+    padding-inline-start: 20px;
+    padding-block-start: 4px;
+    list-style: none;
+    /*font-size: var(--font-size-small);*/
+}
+
+/* Link */
+
+.nav__link {
+    color: var(--clr-txt-secondary);
+    display: block;
+}
+
+/* Mobile */
+
+@media (width < 1024px) {
+    /* List */
+
+    .toc__list {
+        padding-block: 12px;
+    }
+}

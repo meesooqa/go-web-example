@@ -48,6 +48,14 @@ type DataSite struct {
 	Title     string
 	SubTitle  string
 	BuildYear string
+	Menus     map[string]DataMenuItem
+}
+
+type DataMenuItem struct {
+	Name     string
+	Href     string
+	Attr     string
+	Children []DataMenuItem
 }
 
 type DataPage struct {
@@ -67,6 +75,20 @@ func (h *Index) data(_ *http.Request) any {
 			Title:     "Lisa",
 			SubTitle:  "The Leaseholder",
 			BuildYear: "2025",
+			Menus: map[string]DataMenuItem{
+				"Main": DataMenuItem{
+					Children: []DataMenuItem{
+						DataMenuItem{
+							Name: "Home",
+							Href: "/",
+						},
+						DataMenuItem{
+							Name: "Demo",
+							Href: "/demo",
+						},
+					},
+				},
+			},
 		},
 		Page: &DataPage{
 			Lang:        "en",

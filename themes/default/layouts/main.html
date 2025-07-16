@@ -26,6 +26,15 @@
     </div>
 </header>
 <main class="main">
+    <nav class="main__nav nav">
+        <ol class="nav__list">
+            {{ range .Site.Menus.Main.Children }}
+            <li>
+                <a class="nav__link" href="{{ .Href }}">{{ .Name }}</a>
+            </li>
+            {{ end }}
+        </ol>
+    </nav>
     <div class="main__content">
     {{ template "content" . }}
     </div>
