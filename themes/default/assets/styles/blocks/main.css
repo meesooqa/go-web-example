@@ -1,0 +1,15 @@
+/* Main */
+
+.main__content {
+    margin-bottom: 30px;
+}
+
+@media (min-width: 1024px) {
+    .main {
+        padding: 0 32px;
+    }
+
+    .main__content {
+        margin-bottom: 40px;
+    }
+}
