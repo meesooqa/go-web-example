@@ -44,6 +44,11 @@ func (h *Index) handlePage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+type DataSite struct {
+	Title    string
+	SubTitle string
+}
+
 type DataPage struct {
 	Lang        string
 	Title       string
@@ -52,11 +57,16 @@ type DataPage struct {
 
 func (h *Index) data(_ *http.Request) any {
 	data := struct {
-		Page    DataPage
+		Site    *DataSite
+		Page    *DataPage
 		Title   string
 		DemoVar string
 	}{
-		Page: DataPage{
+		Site: &DataSite{
+			Title:    "Lisa",
+			SubTitle: "The Leaseholder",
+		},
+		Page: &DataPage{
 			Lang:        "en",
 			Title:       "Demo",
 			Description: "This is an demo page",

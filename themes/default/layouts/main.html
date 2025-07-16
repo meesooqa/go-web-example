@@ -9,7 +9,26 @@
     <link rel="stylesheet" href="/static/styles/styles.css">
 </head>
 <body class="page__body">
+<header class="header">
+    <div class="header__logo logo">
+        <a class="logo__link" href="/">
+            <img class="logo__image"
+                 src="/static/images/logo.svg"
+                 width="40" height="44"
+                 alt="Logo">
+            <p class="logo__title">
+                {{ .Site.Title }}
+            </p>
+            <p class="logo__tagline">
+                {{ .Site.SubTitle }}
+            </p>
+        </a>
+    </div>
+</header>
+<main class="main">
     {{ template "content" . }}
-    <script type="module" src="/static/scripts/index.js"></script>
+</main>
+<footer class="footer"></footer>
+<script type="module" src="/static/scripts/index.js"></script>
 </body>
 </html>

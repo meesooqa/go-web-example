@@ -4,10 +4,15 @@
 
 @import "blocks/box-sizing.css";
 @import "blocks/page.css";
+@import "blocks/header.css";
+@import "blocks/logo.css";
 
 /* Globals */
 
 :root {
     --clr-txt-primary: #000000;
     --clr-bg-primary: #ffffff;
+
+    --clr-logo: rgb(52, 50, 198);
+    --clr-logo-tagline: rgb(68, 121, 252);
 }
