@@ -45,16 +45,6 @@ func (t *Theme) SiteData() *DataSite {
 }
 
 func (t *Theme) menus() map[string]DataMenuItem {
-	RegisterMenu(map[string]DataMenuItem{
-		MainMenu: {
-			Children: []DataMenuItem{{
-				Sort: 100,
-				Name: "Home",
-				Href: "/",
-				Attr: "title=\"title\"",
-			}},
-		},
-	})
 	menu := mergeMenu(menuRegistry...)
 	for key, item := range menu {
 		// TODO sortMenu is not working
@@ -65,11 +55,13 @@ func (t *Theme) menus() map[string]DataMenuItem {
 }
 
 func (t *Theme) styles() []template.HTML {
+	// theme common css
 	RegisterCSS("<link rel=\"stylesheet\" href=\"/static/styles/styles.css\">")
 	return cssRegistry
 }
 
 func (t *Theme) scripts() []template.HTML {
+	// theme common js
 	RegisterScript("<script type=\"module\" src=\"/static/scripts/index.js\"></script>")
 	return scriptRegistry
 }
