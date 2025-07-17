@@ -17,6 +17,6 @@
     </div>
 </main>
 {{ template "footer" . }}
-<script type="module" src="/static/scripts/index.js"></script>
+{{ range .Site.Scripts }}{{ . }}{{ end }}
 </body>
 </html>

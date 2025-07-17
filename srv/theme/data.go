@@ -22,6 +22,7 @@ type DataSite struct {
 	BuildYear string
 	Menus     map[string]DataMenuItem
 	Styles    []template.HTML
+	Scripts   []template.HTML
 }
 
 type DataMenuItem struct {
@@ -39,6 +40,7 @@ func (t *Theme) SiteData() *DataSite {
 		BuildYear: "2025",
 		Menus:     t.menus(),
 		Styles:    t.styles(),
+		Scripts:   t.scripts(),
 	}
 }
 
@@ -65,4 +67,9 @@ func (t *Theme) menus() map[string]DataMenuItem {
 func (t *Theme) styles() []template.HTML {
 	RegisterCSS("<link rel=\"stylesheet\" href=\"/static/styles/styles.css\">")
 	return cssRegistry
+}
+
+func (t *Theme) scripts() []template.HTML {
+	RegisterScript("<script type=\"module\" src=\"/static/scripts/index.js\"></script>")
+	return scriptRegistry
 }
