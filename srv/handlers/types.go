@@ -7,7 +7,7 @@ import (
 )
 
 type TemplateBuilder interface {
-	BuildTemplate(content, layout string) (*template.Template, error)
+	MustBuildTemplate(content, layout string) *template.Template
 }
 
 type DataSiteProvider interface {
