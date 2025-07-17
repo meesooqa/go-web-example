@@ -6,10 +6,10 @@ import (
 
 	"github.com/meesooqa/go-web-example/cfg"
 	"github.com/meesooqa/go-web-example/lgr"
-	"github.com/meesooqa/go-web-example/server"
-	"github.com/meesooqa/go-web-example/server/handlers"
-	"github.com/meesooqa/go-web-example/server/middlewares"
-	"github.com/meesooqa/go-web-example/server/theme"
+	"github.com/meesooqa/go-web-example/srv"
+	"github.com/meesooqa/go-web-example/srv/handlers"
+	"github.com/meesooqa/go-web-example/srv/middlewares"
+	"github.com/meesooqa/go-web-example/srv/theme"
 )
 
 func main() {
@@ -24,15 +24,15 @@ func main() {
 
 	thm := theme.New(conf.Theme)
 
-	hh := []server.Handler{
+	hh := []srv.Handler{
 		handlers.NewStatic(logger, thm),
 		handlers.NewIndex(logger, thm),
 		handlers.NewDemo(logger, thm),
 	}
-	mw := []server.Middleware{
+	mw := []srv.Middleware{
 		middlewares.NewLogging(logger),
 	}
-	s := server.New(conf.Server, hh, mw)
+	s := srv.New(conf.Server, hh, mw)
 
 	logger.Info("server started", slog.String("host", conf.Server.Host()), slog.Int("port", conf.Server.Port()))
 	log.Fatal(s.Run())

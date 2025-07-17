@@ -3,7 +3,7 @@ package handlers
 import (
 	"html/template"
 
-	"github.com/meesooqa/go-web-example/server/theme"
+	"github.com/meesooqa/go-web-example/srv/theme"
 )
 
 type TemplateBuilder interface {

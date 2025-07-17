@@ -1,4 +1,4 @@
-package server
+package srv
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/meesooqa/go-web-example/server/mocks"
+	"github.com/meesooqa/go-web-example/srv/mocks"
 )
 
 func TestHandle_NoMiddleware(t *testing.T) {

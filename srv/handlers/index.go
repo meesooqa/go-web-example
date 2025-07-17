@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/meesooqa/go-web-example/server/theme"
+	"github.com/meesooqa/go-web-example/srv/theme"
 )
 
 type Index struct {
