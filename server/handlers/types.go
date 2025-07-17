@@ -1,27 +1,20 @@
 package handlers
 
-import "html/template"
+import (
+	"html/template"
+
+	"github.com/meesooqa/go-web-example/server/theme"
+)
 
 type TemplateBuilder interface {
 	BuildTemplate(content, layout string) (*template.Template, error)
 }
 
-type DataSite struct {
-	Title     string
-	SubTitle  string
-	BuildYear string
-	Menus     map[string]DataMenuItem
+type DataSiteProvider interface {
+	SiteData() *theme.DataSite
 }
 
-type DataMenuItem struct {
-	Name     string
-	Href     string
-	Attr     string
-	Children []DataMenuItem
-}
-
-type DataPage struct {
-	Lang        string
-	Title       string
-	Description string
+type Theme interface {
+	TemplateBuilder
+	DataSiteProvider
 }

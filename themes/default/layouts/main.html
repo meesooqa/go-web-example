@@ -30,7 +30,7 @@
         <ol class="nav__list">
             {{ range .Site.Menus.Main.Children }}
             <li>
-                <a class="nav__link" href="{{ .Href }}">{{ .Name }}</a>
+                <a class="nav__link" href="{{ .Href }}" {{ .Attr }}>{{ .Name }}</a>
             </li>
             {{ end }}
         </ol>

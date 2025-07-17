@@ -1,19 +1,22 @@
 package handlers
 
 import (
+	"html/template"
 	"log/slog"
 	"net/http"
+
+	"github.com/meesooqa/go-web-example/server/theme"
 )
 
 type Demo struct {
 	logger *slog.Logger
-	tb     TemplateBuilder
+	t      Theme
 }
 
-func NewDemo(logger *slog.Logger, tb TemplateBuilder) *Demo {
+func NewDemo(logger *slog.Logger, t Theme) *Demo {
 	return &Demo{
 		logger: logger,
-		tb:     tb,
+		t:      t,
 	}
 }
 
@@ -26,7 +29,7 @@ func (h *Demo) handlePage(w http.ResponseWriter, r *http.Request) {
 	//	http.Error(w, "method is not allowed", http.StatusMethodNotAllowed)
 	//	return
 	//}
-	tmpl, err := h.tb.BuildTemplate("demo.html", "")
+	tmpl, err := h.t.BuildTemplate("demo.html", "")
 	if err != nil {
 		h.logger.Error(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -40,37 +43,19 @@ func (h *Demo) handlePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Demo) data(_ *http.Request) any {
-	data := struct {
-		Site    *DataSite
-		Page    *DataPage
-		Title   string
-		DemoVar string
+	content := struct {
+		DemoVar template.HTML
 	}{
-		Site: &DataSite{
-			Title:     "Lisa",
-			SubTitle:  "The Leaseholder",
-			BuildYear: "2025",
-			Menus: map[string]DataMenuItem{
-				"Main": DataMenuItem{
-					Children: []DataMenuItem{
-						DataMenuItem{
-							Name: "Home",
-							Href: "/",
-						},
-						DataMenuItem{
-							Name: "Demo",
-							Href: "/demo",
-						},
-					},
-				},
-			},
-		},
-		Page: &DataPage{
+		DemoVar: "<pre>Demo Var Value</pre>",
+	}
+	data := &theme.TemplateData{
+		Content: &content,
+		Page: &theme.DataPage{
 			Lang:        "en",
 			Title:       "Demo",
 			Description: "This is a demo page",
 		},
-		DemoVar: "DemoVar <pre>VALUE</pre>",
+		Site: h.t.SiteData(),
 	}
 	return data
 }
