@@ -41,11 +41,21 @@ func (t *Theme) SiteData() *DataSite {
 }
 
 func (t *Theme) menus() map[string]DataMenuItem {
-	RegisterMenu(map[string]DataMenuItem{MainMenu: {Children: []DataMenuItem{{
-		Sort: 100,
-		Name: "Home",
-		Href: "/",
-		Attr: "title=\"title\"",
-	}}}})
-	return mergeMenu(menuRegistry...)
+	RegisterMenu(map[string]DataMenuItem{
+		MainMenu: {
+			Children: []DataMenuItem{{
+				Sort: 100,
+				Name: "Home",
+				Href: "/",
+				Attr: "title=\"title\"",
+			}},
+		},
+	})
+	menu := mergeMenu(menuRegistry...)
+	for key, item := range menu {
+		// TODO sortMenu is not working
+		sortMenu(item.Children)
+		menu[key] = item
+	}
+	return menu
 }
