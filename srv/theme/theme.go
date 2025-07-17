@@ -1,6 +1,7 @@
 package theme
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -49,4 +50,14 @@ func (t *Theme) MustBuildTemplateExt(ext, content, layout string) *template.Temp
 func (t *Theme) HandleStatic(mux *http.ServeMux) {
 	path := filepath.Join(t.cfg.ThemesDir(), t.cfg.Theme(), "assets")
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(path))))
+}
+
+func (t *Theme) HandleStaticExt(ext string, mux *http.ServeMux) {
+	if ext == "" {
+		t.HandleStatic(mux)
+		return
+	}
+	path := filepath.Join(t.cfg.ExtDir(), ext, t.cfg.ThemesDir(), t.cfg.Theme(), "assets")
+	ptrn := fmt.Sprintf("/ext/%s/static/", ext)
+	mux.Handle(ptrn, http.StripPrefix(ptrn, http.FileServer(http.Dir(path))))
 }

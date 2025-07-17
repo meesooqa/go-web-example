@@ -12,17 +12,25 @@ import (
 type Demo struct {
 	logger *slog.Logger
 	t      handlers.Theme
+
+	route string
 }
 
 func New(logger *slog.Logger, t handlers.Theme) *Demo {
 	return &Demo{
 		logger: logger,
 		t:      t,
+		route:  "/demo",
 	}
 }
 
 func (h *Demo) Handle(mux *http.ServeMux) {
-	mux.HandleFunc("/demo", h.handlePage)
+	h.handleStatic(mux)
+	mux.HandleFunc(h.route, h.handlePage)
+}
+
+func (h *Demo) handleStatic(mux *http.ServeMux) {
+	h.t.HandleStaticExt(code, mux)
 }
 
 func (h *Demo) handlePage(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +38,7 @@ func (h *Demo) handlePage(w http.ResponseWriter, r *http.Request) {
 	//	http.Error(w, "method is not allowed", http.StatusMethodNotAllowed)
 	//	return
 	//}
-	tmpl := h.t.MustBuildTemplateExt("demo", "index.html", "")
+	tmpl := h.t.MustBuildTemplateExt(code, "index.html", "")
 	err := tmpl.Execute(w, h.data(r))
 	if err != nil {
 		h.logger.Error(err.Error())

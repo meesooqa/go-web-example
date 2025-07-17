@@ -5,10 +5,6 @@ import (
 	"net/http"
 )
 
-type StaticHandler interface {
-	HandleStatic(mux *http.ServeMux)
-}
-
 type Static struct {
 	logger *slog.Logger
 	sh     StaticHandler
