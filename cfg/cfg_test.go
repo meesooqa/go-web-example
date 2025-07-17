@@ -54,8 +54,8 @@ func TestLoad(t *testing.T) {
 
 	t.Run("Handler", func(t *testing.T) {
 		t.Parallel()
-		cfg := c.Handler
-		assert.IsType(t, &Handler{}, cfg)
+		cfg := c.Theme
+		assert.IsType(t, &Theme{}, cfg)
 		assert.Equal(t, "test", cfg.ThemesDir())
 		assert.Equal(t, "test", cfg.RawThemesDir)
 		assert.Equal(t, "theme_test", cfg.Theme())
