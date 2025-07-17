@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+/* Blocks */
+
+@import "blocks/index.css";
+
+:root {
+    --index-clr-brdr: green;
+}
