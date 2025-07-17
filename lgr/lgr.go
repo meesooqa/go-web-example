@@ -1,4 +1,4 @@
-package logging
+package lgr
 
 import (
 	"io"
@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-//go:generate moq --out log_mock.go . Config
+//go:generate moq --out lgr_mock.go . Config
 
 type Config interface {
 	IsWriteToFile() bool

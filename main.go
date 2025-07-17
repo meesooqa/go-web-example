@@ -5,7 +5,7 @@ import (
 	"log/slog"
 
 	"github.com/meesooqa/go-web-example/config"
-	"github.com/meesooqa/go-web-example/logging"
+	"github.com/meesooqa/go-web-example/lgr"
 	"github.com/meesooqa/go-web-example/server"
 	"github.com/meesooqa/go-web-example/server/handlers"
 	"github.com/meesooqa/go-web-example/server/middlewares"
@@ -17,7 +17,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("loading config: %v", err)
 	}
-	logger, closer := logging.New(cfg.Log)
+	logger, closer := lgr.New(cfg.Log)
 	if closer != nil {
 		defer func() { _ = closer.Close() }()
 	}
