@@ -1,11 +1,20 @@
 {{ define "nav" }}
 <nav class="main__nav nav">
     <ol class="nav__list">
-        {{ range .Children }}
-        <li>
-            <a class="nav__link" href="{{ .Href }}" {{ .Attr }}>{{ .Name }}</a>
-        </li>
-        {{ end }}
+        {{ template "navItems" .Children }}
     </ol>
 </nav>
+{{ end }}
+
+{{ define "navItems" }}
+{{ range . }}
+<li>
+    <a class="nav__link" href="{{ .Href }}" {{ .Attr }}>{{ .Name }}</a>
+    {{ if .Children }}
+    <ol class="nav__nested">
+        {{ template "navItems" .Children }}
+    </ol>
+    {{ end }}
+</li>
+{{ end }}
 {{ end }}

@@ -41,16 +41,26 @@ func (t *Theme) SiteData() *DataSite {
 
 func (t *Theme) menus() map[string]DataMenuItem {
 	return map[string]DataMenuItem{
-		"Main": DataMenuItem{
+		"Main": {
 			Children: []DataMenuItem{
-				DataMenuItem{
+				{
 					Name: "Home",
 					Href: "/",
 					Attr: "title=\"title\"",
 				},
-				DataMenuItem{
+				{
 					Name: "Demo",
 					Href: "/demo",
+					Children: []DataMenuItem{
+						{
+							Name: "Sub Item 1",
+							Href: "/demo/page1",
+						},
+						{
+							Name: "Sub Item 2",
+							Href: "/demo/page2",
+						},
+					},
 				},
 			},
 		},
