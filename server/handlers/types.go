@@ -3,7 +3,7 @@ package handlers
 import "html/template"
 
 type TemplateBuilder interface {
-	BuildTemplate(contentFile string) (*template.Template, error)
+	BuildTemplate(content, layout string) (*template.Template, error)
 }
 
 type DataSite struct {

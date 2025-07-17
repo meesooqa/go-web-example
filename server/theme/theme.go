@@ -19,13 +19,18 @@ func New(cfg Config) *Theme {
 	return &Theme{cfg: cfg}
 }
 
-func (t *Theme) BuildTemplate(contentFile string) (*template.Template, error) {
-	if contentFile == "" {
-		contentFile = "default.html"
+func (t *Theme) BuildTemplate(content, layout string) (*template.Template, error) {
+	if content == "" {
+		content = "default.html"
 	}
-	layout := filepath.Join(t.cfg.ThemesDir(), t.cfg.Theme(), "layouts", "main.html")
-	page := filepath.Join(t.cfg.ThemesDir(), t.cfg.Theme(), "content", contentFile)
-	return template.ParseFiles(layout, page)
+	if layout == "" {
+		layout = "main.html"
+	}
+
+	layoutPath := filepath.Join(t.cfg.ThemesDir(), t.cfg.Theme(), "layouts", layout)
+	contentPath := filepath.Join(t.cfg.ThemesDir(), t.cfg.Theme(), "content", content)
+
+	return template.ParseFiles(layoutPath, contentPath)
 }
 
 func (t *Theme) HandleStatic(mux *http.ServeMux) {
