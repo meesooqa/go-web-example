@@ -7,7 +7,7 @@ import (
 )
 
 type TemplateBuilder interface {
-	MustBuildTemplate(content, layout string) *template.Template
+	MustBuildTemplateExt(ext, content, layout string) *template.Template
 }
 
 type DataSiteProvider interface {

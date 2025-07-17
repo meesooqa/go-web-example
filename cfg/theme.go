@@ -7,3 +7,8 @@ func (cfg *Theme) ThemesDir() string {
 func (cfg *Theme) Theme() string {
 	return cfg.RawTheme
 }
+
+func (cfg *Theme) ExtDir() string {
+	// TODO config ext_dir
+	return "ext"
+}

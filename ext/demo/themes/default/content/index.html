@@ -1,0 +1,10 @@
+{{ define "content" }}
+<link rel="stylesheet" href="/static/styles/styles.css">
+<div class="demo">
+    <h1>Привет от Go сервера!</h1>
+    <p>{{ .Content.DemoVar }}</p>
+    <p id="demo">Это пример страницы с шаблоном.</p>
+    <button id="btnDemo">Нажми меня</button>
+</div>
+<script type="module" src="/static/scripts/index.js"></script>
+{{ end }}

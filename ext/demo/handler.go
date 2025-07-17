@@ -30,7 +30,7 @@ func (h *Demo) handlePage(w http.ResponseWriter, r *http.Request) {
 	//	http.Error(w, "method is not allowed", http.StatusMethodNotAllowed)
 	//	return
 	//}
-	tmpl := h.t.MustBuildTemplate("demo.html", "")
+	tmpl := h.t.MustBuildTemplateExt("demo", "index.html", "")
 	err := tmpl.Execute(w, h.data(r))
 	if err != nil {
 		h.logger.Error(err.Error())
