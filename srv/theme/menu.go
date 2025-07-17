@@ -4,6 +4,12 @@ import "sort"
 
 const MainMenu = "Main"
 
+var menuRegistry = make([]map[string]DataMenuItem, 0)
+
+func RegisterMenu(m map[string]DataMenuItem) {
+	menuRegistry = append(menuRegistry, m)
+}
+
 // sortMenu recursively sorts the menu tree in-place by the Sort field.
 // For each DataMenuItem, its Children slice is sorted ascending by Sort,
 // then the same is applied to each child.
