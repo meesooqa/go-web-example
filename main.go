@@ -4,7 +4,7 @@ import (
 	"log"
 	"log/slog"
 
-	"github.com/meesooqa/go-web-example/config"
+	"github.com/meesooqa/go-web-example/cfg"
 	"github.com/meesooqa/go-web-example/lgr"
 	"github.com/meesooqa/go-web-example/server"
 	"github.com/meesooqa/go-web-example/server/handlers"
@@ -13,16 +13,16 @@ import (
 )
 
 func main() {
-	cfg, err := config.Load("etc/config.yml")
+	conf, err := cfg.Load("etc/config.yml")
 	if err != nil {
 		log.Fatalf("loading config: %v", err)
 	}
-	logger, closer := lgr.New(cfg.Log)
+	logger, closer := lgr.New(conf.Log)
 	if closer != nil {
 		defer func() { _ = closer.Close() }()
 	}
 
-	thm := theme.New(cfg.Theme)
+	thm := theme.New(conf.Theme)
 
 	hh := []server.Handler{
 		handlers.NewStatic(logger, thm),
@@ -32,8 +32,8 @@ func main() {
 	mw := []server.Middleware{
 		middlewares.NewLogging(logger),
 	}
-	s := server.New(cfg.Server, hh, mw)
+	s := server.New(conf.Server, hh, mw)
 
-	logger.Info("server started", slog.String("host", cfg.Server.Host()), slog.Int("port", cfg.Server.Port()))
+	logger.Info("server started", slog.String("host", conf.Server.Host()), slog.Int("port", conf.Server.Port()))
 	log.Fatal(s.Run())
 }
