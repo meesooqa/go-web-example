@@ -27,6 +27,7 @@ func main() {
 	hh := []server.Handler{
 		handlers.NewStatic(logger, thm),
 		handlers.NewIndex(logger, thm),
+		handlers.NewDemo(logger, thm),
 	}
 	mw := []server.Middleware{
 		middlewares.NewLogging(logger),

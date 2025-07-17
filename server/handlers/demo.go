@@ -5,28 +5,28 @@ import (
 	"net/http"
 )
 
-type Index struct {
+type Demo struct {
 	logger *slog.Logger
 	tb     TemplateBuilder
 }
 
-func NewIndex(logger *slog.Logger, tb TemplateBuilder) *Index {
-	return &Index{
+func NewDemo(logger *slog.Logger, tb TemplateBuilder) *Demo {
+	return &Demo{
 		logger: logger,
 		tb:     tb,
 	}
 }
 
-func (h *Index) Handle(mux *http.ServeMux) {
-	mux.HandleFunc("/", h.handlePage)
+func (h *Demo) Handle(mux *http.ServeMux) {
+	mux.HandleFunc("/demo", h.handlePage)
 }
 
-func (h *Index) handlePage(w http.ResponseWriter, r *http.Request) {
+func (h *Demo) handlePage(w http.ResponseWriter, r *http.Request) {
 	//if r.Method != h.Method {
 	//	http.Error(w, "method is not allowed", http.StatusMethodNotAllowed)
 	//	return
 	//}
-	tmpl, err := h.tb.BuildTemplate("")
+	tmpl, err := h.tb.BuildTemplate("demo.html")
 	if err != nil {
 		h.logger.Error(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -39,7 +39,7 @@ func (h *Index) handlePage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *Index) data(_ *http.Request) any {
+func (h *Demo) data(_ *http.Request) any {
 	data := struct {
 		Site    *DataSite
 		Page    *DataPage
@@ -67,9 +67,10 @@ func (h *Index) data(_ *http.Request) any {
 		},
 		Page: &DataPage{
 			Lang:        "en",
-			Title:       "Index",
-			Description: "This is a Home page",
+			Title:       "Demo",
+			Description: "This is a demo page",
 		},
+		DemoVar: "DemoVar <pre>VALUE</pre>",
 	}
 	return data
 }
