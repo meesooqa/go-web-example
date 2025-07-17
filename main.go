@@ -5,6 +5,7 @@ import (
 	"log/slog"
 
 	"github.com/meesooqa/go-web-example/ext/demo"
+	"github.com/meesooqa/go-web-example/ext/index"
 
 	"github.com/meesooqa/go-web-example/cfg"
 	"github.com/meesooqa/go-web-example/lgr"
@@ -28,7 +29,7 @@ func main() {
 
 	hh := []srv.Handler{
 		handlers.NewStatic(logger, thm),
-		handlers.NewIndex(logger, thm),
+		index.New(logger, thm),
 		demo.New(logger, thm),
 	}
 	mw := []srv.Middleware{
