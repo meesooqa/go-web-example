@@ -73,5 +73,5 @@ func TestLoadConfigInvalidYaml(t *testing.T) {
 	r, err := Load("testdata/file.txt")
 
 	assert.Nil(t, r)
-	assert.EqualError(t, err, "yaml: unmarshal errors:\n  line 1: cannot unmarshal !!str `Not Yaml` into config.AppConfig")
+	assert.EqualError(t, err, "yaml: unmarshal errors:\n  line 1: cannot unmarshal !!str `Not Yaml` into cfg.AppConfig")
 }
