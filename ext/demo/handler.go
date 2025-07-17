@@ -14,7 +14,7 @@ type Demo struct {
 	t      handlers.Theme
 }
 
-func NewDemo(logger *slog.Logger, t handlers.Theme) *Demo {
+func New(logger *slog.Logger, t handlers.Theme) *Demo {
 	return &Demo{
 		logger: logger,
 		t:      t,

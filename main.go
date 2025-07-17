@@ -29,7 +29,7 @@ func main() {
 	hh := []srv.Handler{
 		handlers.NewStatic(logger, thm),
 		handlers.NewIndex(logger, thm),
-		demo.NewDemo(logger, thm),
+		demo.New(logger, thm),
 	}
 	mw := []srv.Middleware{
 		middlewares.NewLogging(logger),
