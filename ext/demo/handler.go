@@ -1,19 +1,20 @@
-package handlers
+package demo
 
 import (
 	"html/template"
 	"log/slog"
 	"net/http"
 
+	"github.com/meesooqa/go-web-example/srv/handlers"
 	"github.com/meesooqa/go-web-example/srv/theme"
 )
 
 type Demo struct {
 	logger *slog.Logger
-	t      Theme
+	t      handlers.Theme
 }
 
-func NewDemo(logger *slog.Logger, t Theme) *Demo {
+func NewDemo(logger *slog.Logger, t handlers.Theme) *Demo {
 	return &Demo{
 		logger: logger,
 		t:      t,
@@ -41,7 +42,7 @@ func (h *Demo) data(_ *http.Request) any {
 	content := struct {
 		DemoVar template.HTML
 	}{
-		DemoVar: "<pre>Demo Var Value</pre>",
+		DemoVar: template.HTML("<pre>Demo Var Value</pre>"),
 	}
 	data := &theme.TemplateData{
 		Content: &content,

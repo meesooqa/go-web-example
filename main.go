@@ -4,6 +4,8 @@ import (
 	"log"
 	"log/slog"
 
+	"github.com/meesooqa/go-web-example/ext/demo"
+
 	"github.com/meesooqa/go-web-example/cfg"
 	"github.com/meesooqa/go-web-example/lgr"
 	"github.com/meesooqa/go-web-example/srv"
@@ -27,7 +29,7 @@ func main() {
 	hh := []srv.Handler{
 		handlers.NewStatic(logger, thm),
 		handlers.NewIndex(logger, thm),
-		handlers.NewDemo(logger, thm),
+		demo.NewDemo(logger, thm),
 	}
 	mw := []srv.Middleware{
 		middlewares.NewLogging(logger),
