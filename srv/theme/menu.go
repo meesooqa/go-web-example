@@ -1,5 +1,26 @@
 package theme
 
+import "sort"
+
+const MainMenu = "Main"
+
+// sortMenu recursively sorts the menu tree in-place by the Sort field.
+// For each DataMenuItem, its Children slice is sorted ascending by Sort,
+// then the same is applied to each child.
+func sortMenu(items []DataMenuItem) {
+	// First, sort this level
+	sort.SliceStable(items, func(i, j int) bool {
+		return items[i].Sort < items[j].Sort
+	})
+
+	// Then recurse into children
+	for idx := range items {
+		if len(items[idx].Children) > 0 {
+			sortMenu(items[idx].Children)
+		}
+	}
+}
+
 // mergeMenu combines multiple menu maps into one
 //
 // When top‑level keys coincide, their DataMenuItems are merged as follows:

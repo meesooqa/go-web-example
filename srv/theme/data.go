@@ -24,6 +24,7 @@ type DataSite struct {
 }
 
 type DataMenuItem struct {
+	Sort     int
 	Name     string
 	Href     string
 	Attr     template.HTMLAttr

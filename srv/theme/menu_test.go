@@ -103,3 +103,37 @@ func TestMergeMenu_DeepMerge(t *testing.T) {
 		[]string{"A1", "A2"},
 	)
 }
+
+func TestSortMenu_Simple(t *testing.T) {
+	items := []DataMenuItem{
+		{Name: "Second", Sort: 2},
+		{Name: "First", Sort: 1},
+		{Name: "Third", Sort: 3},
+	}
+	sortMenu(items)
+
+	assert.Equal(t, "First", items[0].Name)
+	assert.Equal(t, "Second", items[1].Name)
+	assert.Equal(t, "Third", items[2].Name)
+}
+
+func TestSortMenu_Nested(t *testing.T) {
+	items := []DataMenuItem{
+		{
+			Name: "Parent",
+			Sort: 1,
+			Children: []DataMenuItem{
+				{Name: "ChildB", Sort: 2},
+				{Name: "ChildA", Sort: 1},
+			},
+		},
+	}
+	sortMenu(items)
+
+	// Parent stays
+	assert.Equal(t, "Parent", items[0].Name)
+	// Children sorted
+	children := items[0].Children
+	assert.Equal(t, "ChildA", children[0].Name)
+	assert.Equal(t, "ChildB", children[1].Name)
+}
