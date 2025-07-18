@@ -123,8 +123,24 @@ func TestSortMenu_Nested(t *testing.T) {
 			Name: "Parent",
 			Sort: 1,
 			Children: []DataMenuItem{
-				{Name: "ChildB", Sort: 2},
-				{Name: "ChildA", Sort: 1},
+				{
+					Name: "ChildB",
+					Sort: 200,
+					Children: []DataMenuItem{
+						{Name: "ChildB3", Sort: 30},
+						{Name: "ChildB1", Sort: 10},
+						{Name: "ChildB2", Sort: 20},
+					},
+				},
+				{
+					Name: "ChildA",
+					Sort: 100,
+					Children: []DataMenuItem{
+						{Name: "ChildA1", Sort: 10},
+						{Name: "ChildA3", Sort: 30},
+						{Name: "ChildA2", Sort: 20},
+					},
+				},
 			},
 		},
 	}
@@ -135,5 +151,14 @@ func TestSortMenu_Nested(t *testing.T) {
 	// Children sorted
 	children := items[0].Children
 	assert.Equal(t, "ChildA", children[0].Name)
+	childrenA := children[0].Children
+	assert.Equal(t, "ChildA1", childrenA[0].Name)
+	assert.Equal(t, "ChildA2", childrenA[1].Name)
+	assert.Equal(t, "ChildA3", childrenA[2].Name)
+
 	assert.Equal(t, "ChildB", children[1].Name)
+	childrenB := children[1].Children
+	assert.Equal(t, "ChildB1", childrenB[0].Name)
+	assert.Equal(t, "ChildB2", childrenB[1].Name)
+	assert.Equal(t, "ChildB3", childrenB[2].Name)
 }
