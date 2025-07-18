@@ -4,11 +4,12 @@ import (
 	"log"
 	"log/slog"
 
+	"github.com/meesooqa/lgr"
+
 	"github.com/meesooqa/go-web-example/ext/demo"
 	"github.com/meesooqa/go-web-example/ext/index"
 
 	"github.com/meesooqa/go-web-example/cfg"
-	"github.com/meesooqa/go-web-example/lgr"
 	"github.com/meesooqa/go-web-example/srv"
 	"github.com/meesooqa/go-web-example/srv/handlers"
 	"github.com/meesooqa/go-web-example/srv/middlewares"
