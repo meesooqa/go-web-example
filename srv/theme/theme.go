@@ -8,12 +8,10 @@ import (
 )
 
 type Config interface {
-	ThemesDir() string
-	Theme() string
+	Dir() string
+	Name() string
 	ExtDir() string
-	// Dir() string
-	// Name() string
-	// Lang() string
+	// TODO Lang() string
 }
 
 type Theme struct {
@@ -34,21 +32,21 @@ func (t *Theme) MustBuildTemplateExt(ext, content, layout string) *template.Temp
 
 	contentPath := ""
 	if ext != "" {
-		contentPath = filepath.Join(t.cfg.ExtDir(), ext, t.cfg.ThemesDir(), t.cfg.Theme(), "content", content)
+		contentPath = filepath.Join(t.cfg.ExtDir(), ext, t.cfg.Dir(), t.cfg.Name(), "content", content)
 	} else {
-		contentPath = filepath.Join(t.cfg.ThemesDir(), t.cfg.Theme(), "content", content)
+		contentPath = filepath.Join(t.cfg.Dir(), t.cfg.Name(), "content", content)
 	}
-	layoutPath := filepath.Join(t.cfg.ThemesDir(), t.cfg.Theme(), "layouts", layout)
+	layoutPath := filepath.Join(t.cfg.Dir(), t.cfg.Name(), "layouts", layout)
 	tmpl := template.Must(template.ParseFiles(layoutPath, contentPath))
 
-	layoutPartialsPattern := filepath.Join(t.cfg.ThemesDir(), t.cfg.Theme(), "layouts", "inc", "*.html")
+	layoutPartialsPattern := filepath.Join(t.cfg.Dir(), t.cfg.Name(), "layouts", "inc", "*.html")
 	tmpl = template.Must(tmpl.ParseGlob(layoutPartialsPattern))
 
 	return tmpl
 }
 
 func (t *Theme) HandleStatic(mux *http.ServeMux) {
-	path := filepath.Join(t.cfg.ThemesDir(), t.cfg.Theme(), "assets")
+	path := filepath.Join(t.cfg.Dir(), t.cfg.Name(), "assets")
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(path))))
 }
 
@@ -57,7 +55,7 @@ func (t *Theme) HandleStaticExt(ext string, mux *http.ServeMux) {
 		t.HandleStatic(mux)
 		return
 	}
-	path := filepath.Join(t.cfg.ExtDir(), ext, t.cfg.ThemesDir(), t.cfg.Theme(), "assets")
+	path := filepath.Join(t.cfg.ExtDir(), ext, t.cfg.Dir(), t.cfg.Name(), "assets")
 	ptrn := fmt.Sprintf("/ext/%s/static/", ext)
 	mux.Handle(ptrn, http.StripPrefix(ptrn, http.FileServer(http.Dir(path))))
 }
