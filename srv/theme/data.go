@@ -47,7 +47,6 @@ func (t *Theme) SiteData() *DataSite {
 func (t *Theme) menus() map[string]DataMenuItem {
 	menu := mergeMenu(menuRegistry...)
 	for key, item := range menu {
-		// TODO sortMenu is not working
 		sortMenu(item.Children)
 		menu[key] = item
 	}

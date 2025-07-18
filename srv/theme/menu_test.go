@@ -14,6 +14,7 @@ func TestMergeMenu_Simple(t *testing.T) {
 			Href: "/main1",
 			Attr: "data-test=\"m1\"",
 			Children: []DataMenuItem{{
+				Sort: 200,
 				Name: "Home",
 				Href: "/",
 				Attr: "title=\"Home\"",
@@ -24,12 +25,15 @@ func TestMergeMenu_Simple(t *testing.T) {
 		"Main": {
 			Name: "Main2", // should be ignored since first has Name
 			Children: []DataMenuItem{{
+				Sort: 100,
 				Name: "Demo",
 				Href: "/demo",
 				Children: []DataMenuItem{{
+					Sort: 10,
 					Name: "Sub Item 1",
 					Href: "/demo/page1",
 				}, {
+					Sort: 20,
 					Name: "Sub Item 2",
 					Href: "/demo/page2",
 				}},
@@ -49,14 +53,18 @@ func TestMergeMenu_Simple(t *testing.T) {
 
 	// Children length and order
 	assert.Len(t, item.Children, 2)
+	assert.Equal(t, 200, item.Children[0].Sort)
 	assert.Equal(t, "Home", item.Children[0].Name)
+	assert.Equal(t, 100, item.Children[1].Sort)
 	assert.Equal(t, "Demo", item.Children[1].Name)
 
 	// Demo children
 	demoChildren := item.Children[1].Children
 	assert.Len(t, demoChildren, 2)
+	assert.Equal(t, 10, demoChildren[0].Sort)
 	assert.Equal(t, "Sub Item 1", demoChildren[0].Name)
 	assert.Equal(t, "/demo/page1", demoChildren[0].Href)
+	assert.Equal(t, 20, demoChildren[1].Sort)
 	assert.Equal(t, "Sub Item 2", demoChildren[1].Name)
 }
 

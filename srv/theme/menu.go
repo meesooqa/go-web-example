@@ -50,6 +50,9 @@ func mergeMenu(maps ...map[string]DataMenuItem) map[string]DataMenuItem {
 func mergeItem(a, b DataMenuItem) DataMenuItem {
 	out := copyItem(a)
 
+	if out.Sort == 0 {
+		out.Sort = b.Sort
+	}
 	if out.Name == "" {
 		out.Name = b.Name
 	}
@@ -88,6 +91,7 @@ func mergeChildren(a, b []DataMenuItem) []DataMenuItem {
 // copyItem makes deep copy DataMenuItem
 func copyItem(src DataMenuItem) DataMenuItem {
 	dst := DataMenuItem{
+		Sort:     src.Sort,
 		Name:     src.Name,
 		Href:     src.Href,
 		Attr:     src.Attr,
